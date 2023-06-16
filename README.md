@@ -1,2 +1,3 @@
-# StoredVar
-A lightweight framework to persist properties on local storage
+# PersistedProperty
+
+A description of this package.
