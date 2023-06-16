@@ -79,8 +79,7 @@ public class Persisted<ValueType: Codable & Equatable> {
     /// - parameters:
     ///   - wrappedValue: The default value for this persisted property
     ///   - key: A key used to persist the property on the storage service
-    ///   - storage: The storage to use
-    ///   - persistenceStrategy: The strategy used to determine when the value should be retrieved from disk and when is has to be persisted.
+    ///   - storage: The storage to use (default to `.standard`)
     public init(wrappedValue: ValueType, key: String, storage: Storage = .standard) {
         self.defaultValue = wrappedValue
         self.key = key
