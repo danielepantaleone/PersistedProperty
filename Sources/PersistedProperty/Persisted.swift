@@ -11,20 +11,42 @@
 
 import Foundation
 
-/// Property wrapper to make properties persistable.
+/// Property wrapper to make properties persistable in a pre-configured storage.
 ///
-/// A typical usege would be to decorate a property, providing a storage keyword and a default value:
+/// Typical usage would be to decorate a property, providing a storage key:
 ///
 /// ```
-/// @Persisted(key: "storage.keyword")
-/// var myProperty: Double = 10.0
+/// @Persisted(key: "storage.property")
+/// var aProperty: Double = 10.0
+/// ```
+///
+/// You can optionally specify the desired storage to use when configuring the property wrapper.
+/// If you don't, a default storage backed by the standard `UserDefaults` will be used.
+///
+/// ```
+/// @Persisted(key: "storage.password", storage: .keychain)
+/// var aPassword: String = "abcdefghijklmnopqrstuvwxyz"
+/// ```
+/// You can also create your own storage by conforming to the `StorageService` protocol
+/// and specifying the `.custom(service: StorageService)` storage when configuring the
+/// property wrapper:
+///
+/// ```
+/// class MyStorageService: StorageService {
+///     ...
+/// }
+///
+/// let myService: StorageService = MyStorageService()
+///
+/// @Persisted(key: "storage.password", storage: .custom(service: myService))
+/// var anotherProperty: String = "abcdefghijklmnopqrstuvwxyz"
 /// ```
 @propertyWrapper
 public class Persisted<ValueType: Codable & Equatable> {
     
     // MARK: - Private properties
     
-    /// The keyword used to persist the value in local storage.
+    /// The keyword used to persist the value in the storage.
     private let key: String
     /// The storage where to persist the value.
     private let storage: Storage
