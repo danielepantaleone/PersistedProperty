@@ -11,7 +11,7 @@
 
 import Foundation
 
-/// A protocol that defines a storage service where to persist properties.
+/// A protocol to define a storage service where to persist properties.
 public protocol StorageService {
             
     /// Load the property value from storage.

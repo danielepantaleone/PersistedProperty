@@ -25,6 +25,7 @@ class Mutex {
         pthread_rwlock_init(&mutex, nil)
     }
     
+    /// Destroy the mutex.
     deinit {
         pthread_rwlock_destroy(&mutex)
     }

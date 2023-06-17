@@ -11,7 +11,7 @@
 
 import Foundation
 
-/// Enumeration that lists available access types.
+/// Enumeration that lists available mutex types.
 enum MutexType {
     /// Denote read access on the mutex: concurrent reads are possible.
     case read
