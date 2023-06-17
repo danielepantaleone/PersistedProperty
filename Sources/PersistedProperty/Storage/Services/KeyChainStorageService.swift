@@ -14,7 +14,7 @@ import Foundation
 /// Storage service implementation that persists properties into the iOS `KeyChain`.
 open class KeyChainStorageService: StorageService {
     
-    typealias Query = Dictionary<CFString, Any>
+    typealias Query = [CFString: Any]
     
     // MARK: - Properties
     
@@ -89,7 +89,7 @@ open class KeyChainStorageService: StorageService {
             kSecClass: kSecClassGenericPassword,
             kSecAttrService: serviceName,
             kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock,
-            kSecAttrAccount: key,
+            kSecAttrAccount: key
         ]
         mutator?(&query)
         return query

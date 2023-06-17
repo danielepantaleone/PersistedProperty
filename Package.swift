@@ -8,7 +8,7 @@ let package = Package(
     products: [
         .library(
             name: "PersistedProperty",
-            targets: ["PersistedProperty"]),
+            targets: ["PersistedProperty"])
     ],
     targets: [
         .target(
@@ -16,6 +16,6 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "PersistedPropertyTests",
-            dependencies: ["PersistedProperty"]),
+            dependencies: ["PersistedProperty"])
     ]
 )
