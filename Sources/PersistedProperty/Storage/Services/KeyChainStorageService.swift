@@ -19,9 +19,8 @@ open class KeyChainStorageService: StorageService {
     // MARK: - Properties
     
     let identifier: String
-    let storageEncoder: StorageEncoder = StorageEncoder()
-    let storageDecoder: StorageDecoder = StorageDecoder()
     let mutex: Mutex = Mutex()
+    let storageCoder: StorageCoder = StorageCoder()
     
     // MARK: - Computed properties
     
@@ -56,7 +55,7 @@ open class KeyChainStorageService: StorageService {
         guard let data = dataTypeRef as? Data else {
             return nil
         }
-        return storageDecoder.decode(key: key, data: data)
+        return storageCoder.decode(key: key, data: data)
     }
     
     public func save<ValueType>(_ value: ValueType, key: String) where ValueType: Codable {
@@ -64,7 +63,7 @@ open class KeyChainStorageService: StorageService {
         defer {
             mutex.unlock()
         }
-        if let data = storageEncoder.encode(key: key, value: value) {
+        if let data = storageCoder.encode(key: key, value: value) {
             let query: Query = makeQuery(with: key) {
                 $0[kSecValueData] = data
             }

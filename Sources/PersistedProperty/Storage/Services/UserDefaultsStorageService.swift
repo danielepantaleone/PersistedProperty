@@ -17,9 +17,8 @@ open class UserDefaultsStorageService: StorageService {
     
     // MARK: - Properties
     
-    let storageEncoder: StorageEncoder = StorageEncoder()
-    let storageDecoder: StorageDecoder = StorageDecoder()
     let mutex: Mutex = Mutex()
+    let storageCoder: StorageCoder = StorageCoder()
     let userDefaults: UserDefaults
     
     // MARK: - Initialization
@@ -40,7 +39,7 @@ open class UserDefaultsStorageService: StorageService {
             mutex.unlock()
         }
         if let data = userDefaults.data(forKey: key) {
-            return storageDecoder.decode(key: key, data: data)
+            return storageCoder.decode(key: key, data: data)
         }
         return nil
     }
@@ -50,7 +49,7 @@ open class UserDefaultsStorageService: StorageService {
         defer {
             mutex.unlock()
         }
-        if let data = storageEncoder.encode(key: key, value: value) {
+        if let data = storageCoder.encode(key: key, value: value) {
             userDefaults.set(data, forKey: key)
         }
     }
