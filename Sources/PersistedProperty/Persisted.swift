@@ -69,6 +69,11 @@ public struct Persisted<ValueType: Codable> {
         }
     }
     
+    /// The projection of the binding value that returns the binding.
+    public var projectedValue: Persisted<ValueType> {
+        return self
+    }
+    
     // MARK: - Initialization
     
     /// Construct a new Persisted property.
