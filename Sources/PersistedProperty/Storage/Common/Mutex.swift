@@ -16,7 +16,7 @@ class Mutex {
     
     // MARK: - Properties
     
-    var mutex = pthread_rwlock_t()
+    private var mutex = pthread_rwlock_t()
     
     // MARK: - Initialization
     
