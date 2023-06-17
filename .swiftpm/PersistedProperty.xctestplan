@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "87D7D00B-66FB-4A91-BE04-E57B8D3DE4DF",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "PersistedPropertyTests",
+        "name" : "PersistedPropertyTests"
+      }
+    }
+  ],
+  "version" : 1
+}
