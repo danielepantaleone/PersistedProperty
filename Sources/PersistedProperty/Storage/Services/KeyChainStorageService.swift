@@ -22,9 +22,10 @@ open class KeyChainStorageService: StorageService {
     let mutex: Mutex = Mutex()
     let storageCoder: StorageCoder = StorageCoder()
     
-    // MARK: - Computed properties
+    // MARK: - Lazy properties
     
-    var serviceName: String { "com.danielepantaleone.persisted-property.\(identifier)"}
+    lazy var bundleIdentifier: String = Bundle.main.bundleIdentifier ?? "com.danielepantaleone.persisted-property"
+    lazy var serviceName: String = "\(bundleIdentifier).\(identifier)"
     
     // MARK: - Initialization
     

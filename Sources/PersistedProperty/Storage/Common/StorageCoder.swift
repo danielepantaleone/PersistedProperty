@@ -26,7 +26,11 @@ class StorageCoder {
     
     let jsonDecoder: JSONDecoder = JSONDecoder()
     let jsonEncoder: JSONEncoder = JSONEncoder()
-    let osLogger: OSLog = OSLog(subsystem: "com.danielepantaleone.persisted-property.storage-coder", category: "")
+    
+    // MARK: - Lazy properties
+    
+    lazy var bundleIdentifier: String = Bundle.main.bundleIdentifier ?? "com.danielepantaleone.persisted-property"
+    lazy var osLogger: OSLog = OSLog(subsystem: bundleIdentifier, category: "StorageCoder")
     
     // MARK: - Interface
     
