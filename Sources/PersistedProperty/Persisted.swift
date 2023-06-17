@@ -12,10 +12,11 @@
 import Foundation
 
 /// Property wrapper to make properties persistable in a pre-configured storage.
+/// In order to mark a property with `@Persisted` the property type must conform to the `Codable` protocol.
 ///
 /// Typical usage would be to decorate a property, providing a storage key:
 ///
-/// ```
+/// ```swift
 /// @Persisted(key: "storage.property")
 /// var aProperty: Double = 10.0
 /// ```
@@ -23,7 +24,7 @@ import Foundation
 /// You can optionally specify the desired storage to use when configuring the property wrapper.
 /// If you don't, a default storage backed by the standard `UserDefaults` will be used.
 ///
-/// ```
+/// ```swift
 /// @Persisted(key: "storage.password", storage: .keychain)
 /// var aPassword: String = "abcdefghijklmnopqrstuvwxyz"
 /// ```
@@ -31,18 +32,14 @@ import Foundation
 /// and specifying the `.custom(service: StorageService)` storage when configuring the
 /// property wrapper:
 ///
-/// ```
-/// class MyStorageService: StorageService {
-///     ...
-/// }
-///
+/// ```swift
 /// let myService: StorageService = MyStorageService()
 ///
-/// @Persisted(key: "storage.password", storage: .custom(service: myService))
+/// @Persisted(key: "storage.anotherProperty", storage: .custom(service: myService))
 /// var anotherProperty: String = "abcdefghijklmnopqrstuvwxyz"
 /// ```
 @propertyWrapper
-public class Persisted<ValueType: Codable & Equatable> {
+public struct Persisted<ValueType: Codable> {
     
     // MARK: - Private properties
     
@@ -63,7 +60,7 @@ public class Persisted<ValueType: Codable & Equatable> {
             }
             return defaultValue
         }
-        set {
+        nonmutating set {
             if let optional = newValue as? AnyOptional, optional.isNil {
                 storage.service.remove(key: key)
             } else {
