@@ -52,15 +52,4 @@ class Mutex {
         pthread_rwlock_unlock(&mutex)
     }
     
-    /// Execute the provided closure in a thread safe environment.
-    ///
-    /// - parameters:
-    ///   - type: The type of lock to acquire (either `.read` or `.write`)
-    @inline(never)
-    public func sync<T>(type: MutexType, _ closure: () throws -> T) rethrows -> T {
-        lock(type: type)
-        defer { unlock() }
-        return try closure()
-    }
-    
 }

@@ -12,11 +12,10 @@
 import Foundation
 import os
 
-/// Helper utility class used to decode/encode a stored value from/to raw data.
+/// Utility class used to decode/encode a persisted value from/to raw data.
 class StorageCoder {
     
-    /// Codable struct to wrap property values so that they can be persisted on iOS < 13
-    /// https://stackoverflow.com/a/59475086/3477005
+    /// Codable struct to wrap property values so that they can be persisted on iOS <= 12 (https://stackoverflow.com/a/59475086/3477005)
     struct Wrapper<ValueType>: Codable where ValueType: Codable {
         /// The wrapped value
         let wrapped: ValueType
@@ -47,8 +46,8 @@ class StorageCoder {
             return try jsonDecoder.decode(Wrapper<ValueType>.self, from: data).wrapped
         } catch {
             os_log("Failed to decode value of type %@ using key %@: %@", type: .error, "\(type(of: ValueType.self))", key, error.localizedDescription)
+            return nil
         }
-        return nil
     }
     
     /// Encode a property value into raw data.
@@ -64,8 +63,8 @@ class StorageCoder {
             return try jsonEncoder.encode(Wrapper(wrapped: value))
         } catch {
             os_log("Failed to encode value of type %@ using key %@: %@", type: .error, "\(type(of: ValueType.self))", key, error.localizedDescription)
+            return nil
         }
-        return nil
     }
     
 }
