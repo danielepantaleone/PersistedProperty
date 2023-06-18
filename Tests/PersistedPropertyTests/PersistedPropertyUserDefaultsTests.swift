@@ -13,146 +13,88 @@ import XCTest
 
 @testable import PersistedProperty
 
-let kDefaultUserDefaultsDouble: Double = 10.0
-let kDefaultUserDefaultsString: String = "Hello world"
-let kDefaultUserDefaultsEnum: UserDefaultsPersisted = .one
-let kDefaultUserDefaultsEnumArray: [UserDefaultsPersisted] = [.one, .three]
-
-let kStorageUserDefaultsDouble: String = "storage.double"
-let kStorageUserDefaultsString: String = "storage.string"
-let kStorageUserDefaultsStringOptional: String = "storage.string.optional"
-let kStorageUserDefaultsEnum: String = "storage.enum"
-let kStorageUserDefaultsEnumArray: String = "storage.enum.array"
-
-// MARK: - UserDefaultsPersisted
-
-enum UserDefaultsPersisted: Codable {
-    case one
-    case two
-    case three
-    case four
-}
-
-// MARK: - PersistedContainer
-
-struct UserDefaultsPersistedContainer {
-    @Persisted(key: kStorageUserDefaultsDouble, storage: .standard)
-    var myDouble: Double = kDefaultUserDefaultsDouble
-    @Persisted(key: kStorageUserDefaultsString, storage: .standard)
-    var myString: String = kDefaultUserDefaultsString
-    @Persisted(key: kStorageUserDefaultsStringOptional, storage: .standard)
-    var myStringOptional: String? = nil
-    @Persisted(key: kStorageUserDefaultsEnum, storage: .standard)
-    var myEnum: UserDefaultsPersisted = kDefaultUserDefaultsEnum
-    @Persisted(key: kStorageUserDefaultsEnumArray, storage: .standard)
-    var myEnumArray: [UserDefaultsPersisted] = kDefaultUserDefaultsEnumArray
-}
-
-// MARK: - PersistedPropertyBuiltInTests
-
-class PersistedPropertyUserDefaultsTests: XCTestCase {
-
-    typealias Query = [CFString: Any]
-    
-    // MARK: - Properties
-
-    lazy var bundleIdentifier: String = Bundle.main.bundleIdentifier ?? "com.danielepantaleone.persisted-property"
-    
-    // MARK: - Initialization
-    
-    override func setUp() {
-        deleteUserDefaults(key: kStorageUserDefaultsDouble)
-        deleteUserDefaults(key: kStorageUserDefaultsString)
-        deleteUserDefaults(key: kStorageUserDefaultsStringOptional)
-        deleteUserDefaults(key: kStorageUserDefaultsEnum)
-        deleteUserDefaults(key: kStorageUserDefaultsEnumArray)
-    }
-    
-    // MARK: - Tests
-    
-    func testNoChangeMatchDefaults() {
-        let container = UserDefaultsPersistedContainer()
-        // Check matching defaults
-        XCTAssertEqual(container.myDouble, kDefaultUserDefaultsDouble)
-        XCTAssertEqual(container.myString, kDefaultUserDefaultsString)
-        XCTAssertEqual(container.myEnum, kDefaultUserDefaultsEnum)
-        XCTAssertEqual(container.myEnumArray, kDefaultUserDefaultsEnumArray)
-        XCTAssertNil(container.myStringOptional)
-        // Check user defauls and keychain to be empty
-        XCTAssertFalse(hasUserDefaults(key: kStorageUserDefaultsDouble))
-        XCTAssertFalse(hasUserDefaults(key: kStorageUserDefaultsString))
-        XCTAssertFalse(hasUserDefaults(key: kStorageUserDefaultsStringOptional))
-        XCTAssertFalse(hasUserDefaults(key: kStorageUserDefaultsEnum))
-        XCTAssertFalse(hasUserDefaults(key: kStorageUserDefaultsEnumArray))
-    }
+class PersistedPropertyUserDefaultsTests: PersistedPropertyTests {
     
     func testChangePersistedDoubleOnUserDefaults() {
-        let container = UserDefaultsPersistedContainer()
+        let container = PersistedContainer()
         // Assert default value
-        XCTAssertEqual(container.myDouble, kDefaultUserDefaultsDouble)
+        XCTAssertEqual(container.myUserDefaultsDouble, kDefaultUserDefaultsDouble)
         // Assert value change
-        container.myDouble = 20.0
-        XCTAssertEqual(container.myDouble, 20.0)
-        XCTAssertEqual(container.$myDouble.defaultValue, kDefaultUserDefaultsDouble)
+        container.myUserDefaultsDouble = 20.0
+        XCTAssertEqual(container.myUserDefaultsDouble, 20.0)
+        XCTAssertEqual(container.$myUserDefaultsDouble.defaultValue, kDefaultUserDefaultsDouble)
         XCTAssertTrue(hasUserDefaults(key: kStorageUserDefaultsDouble))
     }
     
     func testChangePersistedStringOnUserDefaults() {
-        let container = UserDefaultsPersistedContainer()
+        let container = PersistedContainer()
         // Assert default value
-        XCTAssertEqual(container.myString, kDefaultUserDefaultsString)
+        XCTAssertEqual(container.myUserDefaultsString, kDefaultUserDefaultsString)
         // Assert value change
-        container.myString = "Lorem ipsum"
-        XCTAssertEqual(container.myString, "Lorem ipsum")
-        XCTAssertEqual(container.$myString.defaultValue, kDefaultUserDefaultsString)
+        container.myUserDefaultsString = "Lorem ipsum"
+        XCTAssertEqual(container.myUserDefaultsString, "Lorem ipsum")
+        XCTAssertEqual(container.$myUserDefaultsString.defaultValue, kDefaultUserDefaultsString)
         XCTAssertTrue(hasUserDefaults(key: kStorageUserDefaultsString))
     }
     
     func testChangePersistedStringOptionalOnUserDefaults() {
-        let container = UserDefaultsPersistedContainer()
+        let container = PersistedContainer()
         // Assert default value
-        XCTAssertNil(container.myStringOptional)
+        XCTAssertNil(container.myUserDefaultsStringOptional)
         // Assert value change
-        container.myStringOptional = "Lorem ipsum"
-        XCTAssertEqual(try XCTUnwrap(container.myStringOptional), "Lorem ipsum")
-        XCTAssertNil(container.$myStringOptional.defaultValue)
+        container.myUserDefaultsStringOptional = "Lorem ipsum"
+        XCTAssertEqual(try XCTUnwrap(container.myUserDefaultsStringOptional), "Lorem ipsum")
+        XCTAssertNil(container.$myUserDefaultsStringOptional.defaultValue)
         XCTAssertTrue(hasUserDefaults(key: kStorageUserDefaultsStringOptional))
         // Assert value clear
-        container.myStringOptional = nil
-        XCTAssertNil(container.myStringOptional)
+        container.myUserDefaultsStringOptional = nil
+        XCTAssertNil(container.myUserDefaultsStringOptional)
         XCTAssertFalse(hasUserDefaults(key: kStorageUserDefaultsStringOptional))
     }
     
     func testChangePersistedEnumOnUserDefaults() {
-        let container = UserDefaultsPersistedContainer()
+        let container = PersistedContainer()
         // Assert default value
-        XCTAssertEqual(container.myEnum, kDefaultUserDefaultsEnum)
+        XCTAssertEqual(container.myUserDefaultsEnum, kDefaultUserDefaultsEnum)
         // Assert value change
-        container.myEnum = .four
-        XCTAssertEqual(container.myEnum, .four)
-        XCTAssertEqual(container.$myEnum.defaultValue, kDefaultUserDefaultsEnum)
+        container.myUserDefaultsEnum = .four
+        XCTAssertEqual(container.myUserDefaultsEnum, .four)
+        XCTAssertEqual(container.$myUserDefaultsEnum.defaultValue, kDefaultUserDefaultsEnum)
         XCTAssertTrue(hasUserDefaults(key: kStorageUserDefaultsEnum))
     }
     
     func testChangePersistedEnumArrayOnUserDefaults() {
-        let container = UserDefaultsPersistedContainer()
+        let container = PersistedContainer()
         // Assert default value
-        XCTAssertEqual(container.myEnumArray, kDefaultUserDefaultsEnumArray)
+        XCTAssertEqual(container.myUserDefaultsEnumArray, kDefaultUserDefaultsEnumArray)
         // Assert value change
-        container.myEnumArray = [.three, .one]
-        XCTAssertEqual(container.myEnumArray, [.three, .one])
-        XCTAssertEqual(container.$myEnumArray.defaultValue, kDefaultUserDefaultsEnumArray)
+        container.myUserDefaultsEnumArray = [.three, .one]
+        XCTAssertEqual(container.myUserDefaultsEnumArray, [.three, .one])
+        XCTAssertEqual(container.$myUserDefaultsEnumArray.defaultValue, kDefaultUserDefaultsEnumArray)
         XCTAssertTrue(hasUserDefaults(key: kStorageUserDefaultsEnumArray))
     }
     
-    // MARK: - Misc
-    
-    private func hasUserDefaults(key: String, userDefaults: UserDefaults = .standard) -> Bool {
-        return userDefaults.data(forKey: key) != nil
+    func testChangePersistedStructOnUserDefaults() {
+        let container = PersistedContainer()
+        let persisted = PersistedStruct(a: 90.0, b: "Hello world", c: false, d: nil)
+        // Assert default value
+        XCTAssertNil(container.myUserDefaultsStruct)
+        // Assert value change
+        container.myUserDefaultsStruct = persisted
+        XCTAssertEqual(container.myUserDefaultsStruct, persisted)
+        XCTAssertNil(container.$myUserDefaultsStruct.defaultValue)
+        XCTAssertTrue(hasUserDefaults(key: kStorageUserDefaultsStruct))
     }
     
-    private func deleteUserDefaults(key: String, userDefaults: UserDefaults = .standard) {
-        userDefaults.removeObject(forKey: key)
+    func testChangePersistedThrowableStructOnUserDefaults() {
+        let container = PersistedContainer()
+        let persisted = PersistedThrowableStruct(a: 90.0, b: "Lorem ipsum")
+        // Assert default value
+        XCTAssertEqual(container.myUserDefaultsThrowableStruct, kDefaultUserDefaultsThrowableStruct)
+        // Assert value change
+        container.myUserDefaultsThrowableStruct = persisted
+        XCTAssertEqual(container.myUserDefaultsThrowableStruct, kDefaultUserDefaultsThrowableStruct)
+        XCTAssertFalse(hasUserDefaults(key: kStorageUserDefaultsThrowableStruct))
     }
     
 }

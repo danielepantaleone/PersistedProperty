@@ -13,127 +13,43 @@ import XCTest
 
 @testable import PersistedProperty
 
-let kDefaultKeyChainDouble: Double = 80.0
-let kDefaultKeyChainPassword: String = "CKPmwZ529rUbGqFP"
-
-let kStorageKeyChainDouble: String = "storage.double"
-let kStorageKeyChainPassword: String = "storage.password"
-let kStorageKeyChainPasswordOptional: String = "storage.password.optional"
-
-// MARK: - KeyChainPersistedContainer
-
-struct KeyChainPersistedContainer {
-    @Persisted(key: kStorageKeyChainDouble, storage: .keychain)
-    var myDouble: Double = kDefaultKeyChainDouble
-    @Persisted(key: kStorageKeyChainPassword, storage: .keychain)
-    var myPassword: String = kDefaultKeyChainPassword
-    @Persisted(key: kStorageKeyChainPasswordOptional, storage: .keychain)
-    var myPasswordOptional: String? = nil
-}
-
-// MARK: - PersistedPropertyKeyChainTests
-
-class PersistedPropertyKeyChainTests: XCTestCase {
-
-    typealias Query = [CFString: Any]
-    
-    // MARK: - Properties
-
-    lazy var bundleIdentifier: String = Bundle.main.bundleIdentifier ?? "com.danielepantaleone.persisted-property"
-    
-    // MARK: - Initialization
-    
-    override func setUp() {
-        deleteKeychain(key: kStorageKeyChainDouble)
-        deleteKeychain(key: kStorageKeyChainPassword)
-        deleteKeychain(key: kStorageKeyChainPasswordOptional)
-    }
-    
-    override func tearDown() {
-        deleteKeychain(key: kStorageKeyChainDouble)
-        deleteKeychain(key: kStorageKeyChainPassword)
-        deleteKeychain(key: kStorageKeyChainPasswordOptional)
-    }
-    
-    // MARK: - Tests
-    
-    func testNoChangeMatchDefaults() {
-        let container = KeyChainPersistedContainer()
-        // Check matching defaults
-        XCTAssertEqual(container.myDouble, kDefaultKeyChainDouble)
-        XCTAssertEqual(container.myPassword, kDefaultKeyChainPassword)
-        XCTAssertNil(container.myPasswordOptional)
-        // Check keychain to be empty
-        XCTAssertFalse(hasKeychain(key: kStorageKeyChainDouble))
-        XCTAssertFalse(hasKeychain(key: kStorageKeyChainPassword))
-        XCTAssertFalse(hasKeychain(key: kStorageKeyChainPasswordOptional))
-    }
+class PersistedPropertyKeyChainTests: PersistedPropertyTests {
     
     func testChangePersistedDoubleOnKeychain() {
-        let container = KeyChainPersistedContainer()
+        let container = PersistedContainer()
         // Assert default value
-        XCTAssertEqual(container.myDouble, kDefaultKeyChainDouble)
+        XCTAssertEqual(container.myKeyChainDouble, kDefaultKeyChainDouble)
         // Assert value change
-        container.myDouble = 0.0
-        XCTAssertEqual(container.myDouble, 0.0)
-        XCTAssertEqual(container.$myDouble.defaultValue, kDefaultKeyChainDouble)
+        container.myKeyChainDouble = 0.0
+        XCTAssertEqual(container.myKeyChainDouble, 0.0)
+        XCTAssertEqual(container.$myKeyChainDouble.defaultValue, kDefaultKeyChainDouble)
         XCTAssertTrue(hasKeychain(key: kStorageKeyChainDouble))
     }
     
     func testChangePersistedPasswordOnKeychain() {
-        let container = KeyChainPersistedContainer()
+        let container = PersistedContainer()
         // Assert default value
-        XCTAssertEqual(container.myPassword, kDefaultKeyChainPassword)
+        XCTAssertEqual(container.myKeyChainPassword, kDefaultKeyChainPassword)
         // Assert value change
-        container.myPassword = "123456789"
-        XCTAssertEqual(container.myPassword, "123456789")
-        XCTAssertEqual(container.$myPassword.defaultValue, kDefaultKeyChainPassword)
+        container.myKeyChainPassword = "123456789"
+        XCTAssertEqual(container.myKeyChainPassword, "123456789")
+        XCTAssertEqual(container.$myKeyChainPassword.defaultValue, kDefaultKeyChainPassword)
         XCTAssertTrue(hasKeychain(key: kStorageKeyChainPassword))
     }
     
     func testChangePersistedPasswordOptionalOnKeychain() {
-        let container = KeyChainPersistedContainer()
+        let container = PersistedContainer()
         // Assert default value
-        XCTAssertNil(container.myPasswordOptional)
+        XCTAssertNil(container.myKeyChainPasswordOptional)
         // Assert value change
-        container.myPasswordOptional = "123456789"
-        XCTAssertEqual(container.myPasswordOptional, "123456789")
-        XCTAssertNil(container.$myPasswordOptional.defaultValue)
+        container.myKeyChainPasswordOptional = "123456789"
+        XCTAssertEqual(container.myKeyChainPasswordOptional, "123456789")
+        XCTAssertNil(container.$myKeyChainPasswordOptional.defaultValue)
         XCTAssertTrue(hasKeychain(key: kStorageKeyChainPasswordOptional))
         // Assert value clear
-        container.myPasswordOptional = nil
-        XCTAssertNil(container.myPasswordOptional)
+        container.myKeyChainPasswordOptional = nil
+        XCTAssertNil(container.myKeyChainPasswordOptional)
         XCTAssertFalse(hasKeychain(key: kStorageKeyChainPasswordOptional))
-    }
-    
-    // MARK: - Misc
-    
-    private func hasKeychain(key: String, identifier: String = "default") -> Bool {
-        var dataTypeRef: AnyObject?
-        let status: OSStatus = SecItemCopyMatching([
-            kSecReturnData: kCFBooleanTrue!,
-            kSecMatchLimit: kSecMatchLimitOne,
-            kSecClass: kSecClassGenericPassword,
-            kSecAttrService: "\(bundleIdentifier).\(identifier)",
-            kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock,
-            kSecAttrAccount: key
-        ] as [CFString : Any] as CFDictionary, &dataTypeRef)
-        guard status == noErr else {
-            return false
-        }
-        guard dataTypeRef is Data else {
-            return false
-        }
-        return true
-    }
-    
-    private func deleteKeychain(key: String, identifier: String = "default") {
-        SecItemDelete([
-            kSecClass: kSecClassGenericPassword,
-            kSecAttrService: "\(bundleIdentifier).\(identifier)",
-            kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock,
-            kSecAttrAccount: key
-        ] as [CFString : Any] as CFDictionary)
     }
     
 }
