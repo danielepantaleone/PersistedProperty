@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "PersistedProperty",
+    platforms: [
+        .iOS(.v11)
+    ],
     products: [
         .library(
             name: "PersistedProperty",
