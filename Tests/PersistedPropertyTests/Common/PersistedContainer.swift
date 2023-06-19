@@ -37,7 +37,6 @@ let kStorageInMemoryDouble: String = "storage.double"
 let kStorageInMemoryString: String = "storage.string"
 let kStorageInMemoryStringOptional: String = "storage.string.optional"
 
-
 // MARK: - PersistedEnum
 
 enum PersistedEnum: Codable {

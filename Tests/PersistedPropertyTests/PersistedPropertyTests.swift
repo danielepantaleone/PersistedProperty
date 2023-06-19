@@ -89,7 +89,7 @@ class PersistedPropertyTests: XCTestCase {
             kSecAttrService: "\(bundleIdentifier).\(identifier)",
             kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock,
             kSecAttrAccount: key
-        ] as [CFString : Any] as CFDictionary, &dataTypeRef)
+        ] as [CFString: Any] as CFDictionary, &dataTypeRef)
         guard status == noErr else {
             return false
         }
@@ -121,7 +121,7 @@ class PersistedPropertyTests: XCTestCase {
             kSecAttrService: "\(bundleIdentifier).\(identifier)",
             kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock,
             kSecAttrAccount: key
-        ] as [CFString : Any] as CFDictionary)
+        ] as [CFString: Any] as CFDictionary)
     }
     
     func deleteInMemoryStorage() {

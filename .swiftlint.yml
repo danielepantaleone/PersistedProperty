@@ -2,6 +2,7 @@ disabled_rules:
   - cyclomatic_complexity
   - identifier_name
   - notification_center_detachment
+  - redundant_optional_initialization
   - trailing_whitespace
   
 file_length: 500

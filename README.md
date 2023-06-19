@@ -80,7 +80,7 @@ class MyCustomStorageService: StorageService {
 let myService: StorageService = MyCustomStorageService()
 
 // This will be persisted in the custom storage service.
-@Persisted(key: "myProperty", storage:  .custom(service: myService))
+@Persisted(key: "myProperty", storage: .custom(service: myService))
 var myProperty: Double = 10.0
 ```
 
