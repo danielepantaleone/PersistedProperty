@@ -7,6 +7,8 @@
 ![CocoaPods](https://img.shields.io/cocoapods/v/PersistedProperty.svg?style=flat-square)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/danielepantaleone/PersistedProperty?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/danielepantaleone/PersistedProperty?style=flat-square)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/danielepantaleone/PersistedProperty/unit-tests.yml?style=flat-square)
+
 
 A Swift-based lightweight framework that enable the persistence of Swift properties on a pre-configured storage.
 
