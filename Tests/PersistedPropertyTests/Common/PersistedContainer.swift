@@ -20,6 +20,8 @@ let kDefaultUserDefaultsString: String = "Hello world"
 let kDefaultUserDefaultsEnum: PersistedEnum = .one
 let kDefaultUserDefaultsEnumArray: [PersistedEnum] = [.one, .three]
 let kDefaultUserDefaultsThrowableStruct: PersistedThrowableStruct = PersistedThrowableStruct(a: 10.0, b: "Hello world")
+let kDefaultInMemoryDouble: Double = 70.0
+let kDefaultInMemoryString: String = "Lorem iopsum"
 
 let kStorageKeyChainDouble: String = "storage.double"
 let kStorageKeyChainPassword: String = "storage.password"
@@ -31,6 +33,10 @@ let kStorageUserDefaultsEnum: String = "storage.enum"
 let kStorageUserDefaultsEnumArray: String = "storage.enum.array"
 let kStorageUserDefaultsStruct: String = "storage.struct"
 let kStorageUserDefaultsThrowableStruct: String = "storage.struct.throwable"
+let kStorageInMemoryDouble: String = "storage.double"
+let kStorageInMemoryString: String = "storage.string"
+let kStorageInMemoryStringOptional: String = "storage.string.optional"
+
 
 // MARK: - PersistedEnum
 
@@ -112,5 +118,12 @@ struct PersistedContainer {
     var myUserDefaultsStruct: PersistedStruct? = nil
     @Persisted(key: kStorageUserDefaultsThrowableStruct, storage: .standard)
     var myUserDefaultsThrowableStruct: PersistedThrowableStruct = kDefaultUserDefaultsThrowableStruct
+    
+    @Persisted(key: kStorageInMemoryDouble, storage: .custom(service: InMemoryStorageService.shared))
+    var myInMemoryDouble: Double = kDefaultInMemoryDouble
+    @Persisted(key: kStorageInMemoryString, storage: .custom(service: InMemoryStorageService.shared))
+    var myInMemoryString: String = kDefaultInMemoryString
+    @Persisted(key: kStorageInMemoryStringOptional, storage: .custom(service: InMemoryStorageService.shared))
+    var myInMemoryStringOptional: String? = nil
 
 }

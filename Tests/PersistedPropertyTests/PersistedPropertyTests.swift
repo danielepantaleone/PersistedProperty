@@ -33,6 +33,7 @@ class PersistedPropertyTests: XCTestCase {
         deleteKeychain(key: kStorageKeyChainDouble)
         deleteKeychain(key: kStorageKeyChainPassword)
         deleteKeychain(key: kStorageKeyChainPasswordOptional)
+        deleteInMemoryStorage()
     }
     
     override func tearDown() {
@@ -45,6 +46,7 @@ class PersistedPropertyTests: XCTestCase {
         deleteKeychain(key: kStorageKeyChainDouble)
         deleteKeychain(key: kStorageKeyChainPassword)
         deleteKeychain(key: kStorageKeyChainPasswordOptional)
+        deleteInMemoryStorage()
     }
     
     // MARK: - Tests
@@ -61,6 +63,9 @@ class PersistedPropertyTests: XCTestCase {
         XCTAssertEqual(container.myKeyChainDouble, kDefaultKeyChainDouble)
         XCTAssertEqual(container.myKeyChainPassword, kDefaultKeyChainPassword)
         XCTAssertNil(container.myKeyChainPasswordOptional)
+        XCTAssertEqual(container.myInMemoryDouble, kDefaultInMemoryDouble)
+        XCTAssertEqual(container.myInMemoryString, kDefaultInMemoryString)
+        XCTAssertNil(container.myInMemoryStringOptional)
         // Check user defauls and keychain to be empty
         XCTAssertFalse(hasUserDefaults(key: kStorageUserDefaultsDouble))
         XCTAssertFalse(hasUserDefaults(key: kStorageUserDefaultsString))
@@ -98,6 +103,14 @@ class PersistedPropertyTests: XCTestCase {
         return userDefaults.data(forKey: key) != nil
     }
     
+    func hasInMemory(key: String) -> Bool {
+        if let storage = InMemoryStorageService.shared as? InMemoryStorageService {
+            return storage.dictionary[key] != nil
+        } else {
+            return false
+        }
+    }
+    
     func deleteUserDefaults(key: String, userDefaults: UserDefaults = .standard) {
         userDefaults.removeObject(forKey: key)
     }
@@ -109,6 +122,12 @@ class PersistedPropertyTests: XCTestCase {
             kSecAttrAccessible: kSecAttrAccessibleAfterFirstUnlock,
             kSecAttrAccount: key
         ] as [CFString : Any] as CFDictionary)
+    }
+    
+    func deleteInMemoryStorage() {
+        if let storage = InMemoryStorageService.shared as? InMemoryStorageService {
+            storage.dictionary.removeAll()
+        }
     }
     
 }
