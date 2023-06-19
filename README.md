@@ -30,6 +30,7 @@ A Swift-based lightweight framework that enable the persistence of Swift propert
 - Native support for `UserDefaults` based storage
 - Native support for iOS `KeyChain` based storage
 - Property persistence achieved through the `@Persisted` property wrapper
+- Properties wrapped with `@Persisted` must conform to the `Codable` protocol
 - Possibility to specify your custom storage facility
 
 ## Basic usage
