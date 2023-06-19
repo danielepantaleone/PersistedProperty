@@ -28,9 +28,9 @@ import Foundation
 /// @Persisted(key: "storage.password", storage: .keychain)
 /// var aPassword: String = "abcdefghijklmnopqrstuvwxyz"
 /// ```
-/// You can also create your own storage by conforming to the `StorageService` protocol
-/// and specifying the `.custom(service: StorageService)` storage when configuring the
-/// property wrapper:
+/// Additionally, you can also create your own storage by adopting to the `StorageService` protocol
+/// in your custom implementation and specifying the `.custom(service: myService)` storage
+/// when configuring the property wrapper:
 ///
 /// ```swift
 /// let myService: StorageService = MyStorageService()
