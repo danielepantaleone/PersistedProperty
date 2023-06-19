@@ -15,6 +15,11 @@ import os
 /// Basic storage service implementation that persists properties into `UserDefaults`.
 open class UserDefaultsStorageService: StorageService {
     
+    // MARK: - Shared
+    
+    /// Reference to the shared user defaults storage service.
+    public static let shared: StorageService = UserDefaultsStorageService(userDefaults: .standard)
+    
     // MARK: - Properties
     
     let mutex: Mutex = Mutex()
