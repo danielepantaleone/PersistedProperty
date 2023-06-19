@@ -1,5 +1,5 @@
 <p align="left">
-<img alt="logo" src="./Assets/Logo.png" width="200">
+<img alt="logo" src="./Assets/Logo.png" width="240">
 </p>
 
 [![Swift](https://img.shields.io/endpoint?url=https://swiftpackageindex.com/api/packages/danielepantaleone/PersistedProperty/badge?type=swift-versions&style=flat-square)](https://swiftpackageindex.com/danielepantaleone/PersistedProperty)
