@@ -4,7 +4,7 @@
 
 [![Swift](https://img.shields.io/endpoint?url=https://swiftpackageindex.com/api/packages/danielepantaleone/PersistedProperty/badge?type=swift-versions&style=flat-square)](https://swiftpackageindex.com/danielepantaleone/PersistedProperty)
 [![Platform](https://img.shields.io/endpoint?url=https://swiftpackageindex.com/api/packages/danielepantaleone/PersistedProperty/badge?type=platforms&style=flat-square)](https://swiftpackageindex.com/danielepantaleone/PersistedProperty)
-![CocoaPods](https://img.shields.io/cocoapods/v/PersistedProperty.svg?style=flat-square)
+![Cocoapods](https://img.shields.io/cocoapods/v/PersistedProperty?style=flat-square)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/danielepantaleone/PersistedProperty?style=flat-square)
 ![GitHub](https://img.shields.io/github/license/danielepantaleone/PersistedProperty?style=flat-square)
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/danielepantaleone/PersistedProperty/unit-tests.yml?style=flat-square)
