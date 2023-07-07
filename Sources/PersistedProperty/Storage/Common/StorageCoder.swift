@@ -37,7 +37,7 @@ class StorageCoder {
     /// Will return `nil` if the decoding doesn't succeed.
     ///
     /// - parameters:
-    ///   - key: The key used to map the value in the storag (for logging purpose only)
+    ///   - key: The key used to map the value in the storage (for logging purpose only)
     ///   - data: Raw data from which to decode the value
     ///
     /// - returns: `ValueType?`
@@ -54,7 +54,7 @@ class StorageCoder {
     /// Will return `nil` if the encoding doesn't succeed.
     ///
     /// - parameters:
-    ///   - key: The key used to map the value in the storag (for logging purpose only)
+    ///   - key: The key used to map the value in the storage (for logging purpose only)
     ///   - value: The value to encode
     ///
     /// - returns: `Data`
