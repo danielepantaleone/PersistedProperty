@@ -16,7 +16,6 @@ A Swift-based lightweight framework that enable the persistence of Swift propert
 * [Feature Highlights](#feature-highlights)
 * [Basic usage](#basic-usage)
 * [Advanced usage](#advanced-usage)
-* [Requirements](#requirements)
 * [Installation](#installation)
     * [Cocoapods](#cocoapods)
     * [Swift Package Manager](#swift-package-manager)
@@ -82,12 +81,6 @@ let myService: StorageService = MyCustomStorageService()
 @Persisted(key: "myProperty", storage: .custom(service: myService))
 var myProperty: Double = 10.0
 ```
-
-## Requirements
-
-- iOS **11+**
-- Xcode **14+** 
-- Swift **5.7+**  
 
 ## Installation
 
