@@ -24,7 +24,7 @@ A Swift-based lightweight framework that enable the persistence of Swift propert
 
 ## Feature Highlights
 
-- Compatible with iOS, macOS, watchOS and tvOS
+- Compatible with iOS and macOS
 - Native support for `UserDefaults` based storage
 - Native support for iOS `KeyChain` based storage
 - Property persistence achieved through the `@Persisted` property wrapper
