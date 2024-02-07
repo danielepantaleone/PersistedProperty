@@ -16,7 +16,8 @@ let package = Package(
     targets: [
         .target(
             name: "PersistedProperty",
-            dependencies: []),
+            dependencies: [],
+            resources: [.copy("PrivacyInfo.xcprivacy")]),
         .testTarget(
             name: "PersistedPropertyTests",
             dependencies: ["PersistedProperty"])

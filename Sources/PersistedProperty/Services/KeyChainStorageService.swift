@@ -11,10 +11,10 @@
 
 import Foundation
 
-typealias Query = [CFString: Any]
-
 /// Storage service implementation that persists properties into the iOS `KeyChain`.
 open class KeyChainStorageService: StorageService {
+    
+    typealias Query = [CFString: Any]
     
     // MARK: - Shared
     

@@ -12,7 +12,7 @@
 import Foundation
 
 /// Property wrapper to make properties persistable in a pre-configured storage.
-/// In order to mark a property with `@Persisted` the property type must conform to the `Codable` protocol.
+/// In order to mark a property with ``@Persisted`` the property type must conform to the ``Codable`` protocol.
 ///
 /// Typical usage would be to decorate a property, providing a storage key:
 ///
@@ -22,13 +22,13 @@ import Foundation
 /// ```
 ///
 /// You can optionally specify the desired storage to use when configuring the property wrapper.
-/// If you don't, a default storage backed by the standard `UserDefaults` will be used.
+/// If you don't, a default storage backed by the standard ``UserDefaults`` will be used.
 ///
 /// ```swift
 /// @Persisted(key: "storage.password", storage: .keychain)
 /// var aPassword: String = "abcdefghijklmnopqrstuvwxyz"
 /// ```
-/// Additionally, you can also create your own storage by adopting to the `StorageService` protocol
+/// Additionally, you can also create your own storage by adopting to the ``StorageService`` protocol
 /// in your custom implementation and specifying the `.custom(service: myService)` storage
 /// when configuring the property wrapper:
 ///

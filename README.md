@@ -24,7 +24,7 @@ A Swift-based lightweight framework that enable the persistence of Swift propert
 
 ## Feature Highlights
 
-- Compatible with **iOS 11+**
+- Compatible with iOS, macOS, watchOS and tvOS
 - Native support for `UserDefaults` based storage
 - Native support for iOS `KeyChain` based storage
 - Property persistence achieved through the `@Persisted` property wrapper
@@ -61,17 +61,11 @@ Additionally, you can specify your custom storage service by creating your stora
 /// A custom storage provider conforming to the StorageService protocol
 class MyCustomStorageService: StorageService {
     
-    func load<ValueType>(key: String) -> ValueType? where ValueType: Codable {
-        // your code goes here
-    }
+    func load<ValueType>(key: String) -> ValueType? where ValueType: Codable ...
     
-    func save<ValueType>(_ value: ValueType, key: String) where ValueType: Codable {
-        // your code goes here
-    }
+    func save<ValueType>(_ value: ValueType, key: String) where ValueType: Codable ...
     
-    func remove(key: String) {
-        // your code goes here
-    }
+    func remove(key: String) ...
     
 }
 
@@ -89,7 +83,7 @@ var myProperty: Double = 10.0
 Add the dependency to the `PersistedProperty` framework in your `Podfile`:
 
 ```ruby
-pod 'PersistedProperty', '~> 1.0.0'
+pod 'PersistedProperty', '~> 1.1.0'
 ```
 
 ### Swift Package Manager
@@ -98,7 +92,7 @@ Add it as a dependency in a Swift Package:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/danielepantaleone/PersistedProperty.git", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/danielepantaleone/PersistedProperty.git", .upToNextMajor(from: "1.1.0"))
 ]
 ```
 
